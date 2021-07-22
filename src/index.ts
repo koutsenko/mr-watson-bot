@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-import { noBotToken, noOwnerId, errorUnauthorized, successStart } from './messages';
+import * as Messages from './messages';
 import { initBot } from './telegraf';
 
 /**
@@ -12,12 +12,12 @@ const check = (): boolean => {
     let result: boolean = true;
 
     if (!process.env.BOT_TOKEN) {
-        console.error(`Error: ${noBotToken}`);
+        console.error(`Error: ${Messages.NO_BOT_TOKEN}`);
         result = false;
     }
 
     if (!process.env.OWNER_CHAT_ID) {
-        console.error(`Error: ${noOwnerId}`);
+        console.error(`Error: ${Messages.NO_OWNER_CHAT_ID}`);
         result = false;
     }
 
@@ -39,7 +39,7 @@ const EP = (): void => {
     // Важно в catch() вернуть ошибку и потом в then() проверить ее наличие.
     initBot().catch(error => {
         if (error?.response?.error_code === 401 && error?.response?.description === 'Unauthorized') {
-            console.log(`Error: ${errorUnauthorized}`);
+            console.log(`Error: ${Messages.ERROR_UNAUTHORIZED}`);
         }  else {
             console.log('Error UNKNOWN:', error);
         }
@@ -50,7 +50,7 @@ const EP = (): void => {
             return;
         }
 
-        console.log(successStart);
+        console.log(Messages.SUCCESS_START);
     });
 }
 
