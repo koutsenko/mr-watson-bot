@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-import { errorUnauthorized, successStart } from './messages';
+import { noBotToken, noOwnerId, errorUnauthorized, successStart } from './messages';
 import { initBot } from './telegraf';
 
 /**
@@ -12,7 +12,12 @@ const check = (): boolean => {
     let result: boolean = true;
 
     if (!process.env.BOT_TOKEN) {
-        console.error('Error: no BOT_TOKEN found, please check your .env config');
+        console.error(`Error: ${noBotToken}`);
+        result = false;
+    }
+
+    if (!process.env.OWNER_CHAT_ID) {
+        console.error(`Error: ${noOwnerId}`);
         result = false;
     }
 
