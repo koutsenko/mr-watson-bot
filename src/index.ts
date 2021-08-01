@@ -27,7 +27,7 @@ const check = (): boolean => {
 /**
  * Точка входа.
  */
-const EP = (): void => {
+const EP = async (): Promise<void> => {
     config();
     const checkResult: boolean = check();
 
@@ -35,23 +35,21 @@ const EP = (): void => {
         return;
     }
 
-    // Асинхронная функция вернет промис, ошибку ловим через catch() вместо try/catch.
-    // Важно в catch() вернуть ошибку и потом в then() проверить ее наличие.
-    initBot().catch(error => {
+    let started = false;
+    try {
+        await initBot();
+        started = true;
+    } catch (error) {
         if (error?.response?.error_code === 401 && error?.response?.description === 'Unauthorized') {
             console.log(`Error: ${Messages.ERROR_UNAUTHORIZED}`);
         }  else {
             console.log('Error UNKNOWN:', error);
         }
-
-        return error;
-    }).then((error) => {
-        if (error) {
-            return;
+    } finally {
+        if (started) {
+            console.log(Messages.SUCCESS_START);
         }
-
-        console.log(Messages.SUCCESS_START);
-    });
+    }
 }
 
 EP();
