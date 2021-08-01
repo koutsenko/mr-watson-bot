@@ -21,6 +21,16 @@ const check = (): boolean => {
         result = false;
     }
 
+    if (!process.env.USER_API_ID) {
+        console.error(`Error: ${Messages.NO_USER_API_ID}`);
+        result = false;
+    }
+
+    if (!process.env.USER_API_HASH) {
+        console.error(`Error: ${Messages.NO_USER_API_HASH}`);
+        result = false;
+    }
+
     return result;
 }
 
