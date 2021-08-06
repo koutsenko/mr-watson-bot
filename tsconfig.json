@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
-      "outDir": "dist"
+      "outDir": "dist",
+      "typeRoots": ["./types"],
+      "sourceMap": true
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules"]
