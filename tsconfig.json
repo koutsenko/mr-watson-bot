@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
-      "outDir": "dist"
+      "outDir": "dist",
+      "typeRoots": ["./types"],
+      "sourceMap": true,
+      "esModuleInterop": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "jest.config.js"],
     "exclude": ["node_modules"]
 }
