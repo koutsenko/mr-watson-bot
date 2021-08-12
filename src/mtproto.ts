@@ -7,6 +7,7 @@ import * as MTProto from '@mtproto/core';
 const prompt = require('prompt');
 
 import API_mtproto from './api/mtproto';
+import { IUser } from './types/telegram-api';
 
 /**
  * Процедура авторизации, включающая запрос СМС-кода. 
@@ -49,11 +50,14 @@ const authorize = async (api: API_mtproto) => {
     }
 }
 
-export const initEye = async (): Promise<MTProto> => {
-    const api = new API_mtproto();
+/**
+ * Инициализация модуля с Telegram API.
+ */
+export const initEye = async (): Promise<[MTProto, string]> => {
+    const api: API_mtproto = new API_mtproto();
     await authorize(api);
 
-    const self = await api.getSelf();
+    const self: IUser = await api.getSelf();
     const {access_hash} = self.user;
 
     return [api, access_hash];

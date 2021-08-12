@@ -5,6 +5,7 @@
 import * as path from 'path';
 import * as MTProto from '@mtproto/core';
 import { sleep } from '@mtproto/core/src/utils/common';
+import { IInputUser } from '../types/telegram-api';
 
 /**
  * Класс-обертка над методами @mtproto/core. Назначение:
@@ -110,7 +111,7 @@ export default class API_mtproto {
      */
     getUser = async (user_id, access_hash) => {
         try {
-            const inputUser = {
+            const inputUser: IInputUser = {
                 _: 'inputUser',
                 user_id,
                 access_hash

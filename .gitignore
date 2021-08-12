@@ -1,4 +1,5 @@
 .env
+coverage/
 dist/
 data/eye.json
 node_modules/
