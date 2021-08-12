@@ -3,7 +3,7 @@
  * Основан на примере https://mtproto-core.js.org/docs/setup-handle-errors.
  */
 import * as path from 'path';
-import * as MTProto from '@mtproto/core';
+import MTProto from '@mtproto/core';
 import { sleep } from '@mtproto/core/src/utils/common';
 import { IInputUser } from '../types/telegram-api';
 

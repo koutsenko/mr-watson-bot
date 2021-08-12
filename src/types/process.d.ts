@@ -10,4 +10,7 @@ declare namespace NodeJS {
         USER_PHONE_NUMBER: string;
         USER_TG_CLOUD_PASSWORD: string;
     }
+
+    // https://github.com/facebook/jest/issues/11640
+    interface Global {}
 }

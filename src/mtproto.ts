@@ -10,7 +10,7 @@ import API_mtproto from './api/mtproto';
 import { IUser } from './types/telegram-api';
 
 /**
- * Процедура авторизации, включающая запрос СМС-кода. 
+ * Процедура авторизации. 
  * См. https://mtproto-core.js.org/docs/user-authorization.
  * 
  * @param api Модуль Telegram API (mtproto).

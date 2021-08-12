@@ -1,10 +1,10 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 /**
  * Вычисляет признак позднего вечера.
  */
 export const isLateEvening = () => {
-    const hour = moment.utc().hour();
+    const hour = moment.tz('Europe/Moscow').hour();
     const result = hour === 23;
 
     return result;
@@ -14,7 +14,7 @@ export const isLateEvening = () => {
  * Вычисляет признак поздней ночи.
  */
 export const isNight = () => {
-    const hour = moment.utc().hour();
+    const hour = moment.tz('Europe/Moscow').hour();
     const result = hour >= 0 && hour < 5;
 
     return result;
