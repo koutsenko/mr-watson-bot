@@ -6,6 +6,8 @@ import { Telegraf } from "telegraf";
 import * as MTProto from '@mtproto/core';
 import * as schedule from "node-schedule";
 import { everyMinute } from "./constants/jobs";
+import { shouldGoSleep } from "./checks/tooLateOnline";
+import { IUser } from "./types/telegram-api";
 
 /**
  * Модуль проверки качества сна патрона.
@@ -18,9 +20,12 @@ import { everyMinute } from "./constants/jobs";
  */
 export const initSleep = (eye: MTProto, bot: Telegraf, access_hash) => {
     const job = schedule.scheduleJob(everyMinute, async () => {
-        const result = await eye.getUser(process.env.OWNER_CHAT_ID, access_hash);
+        const id = process.env.OWNER_CHAT_ID;
+        const result: IUser = await eye.getUser(id, access_hash);
         const { status } = result.user;
-        bot.telegram.sendMessage(process.env.OWNER_CHAT_ID, JSON.stringify(status));
+        if (shouldGoSleep(status)) {
+            bot.telegram.sendMessage(id, "Пора спать!");
+        }
     });
 
     return job;
