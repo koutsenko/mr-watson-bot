@@ -10,7 +10,8 @@
     "start": "node dist/index.js",
     "test": "jest",
     "cover": "jest --coverage",
-    "lint": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts --fix",
+    "lint:watch": "onchange src/**/*.ts -- eslint --fix {{changed}}"
   },
   "author": "",
   "license": "ISC",
@@ -55,6 +56,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.6",
+    "onchange": "^7.1.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.4",
