@@ -11,7 +11,9 @@
     "test": "jest",
     "cover": "jest --coverage",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier":  "prettier src/**/*.ts",
+    "prettier:fix":  "prettier src/**/*.ts --write"
   },
   "author": "",
   "license": "ISC",
@@ -31,6 +33,12 @@
       "@typescript-eslint/no-empty-interface": "off"
     }
   },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "none",
+    "singleQuote": true,
+    "printWidth": 80
+  },
   "jest": {
     "preset": "ts-jest",
     "roots": [
@@ -45,6 +53,7 @@
     "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
     "jest": "^27.0.6",
+    "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
