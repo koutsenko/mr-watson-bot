@@ -10,8 +10,8 @@
     "start": "node dist/index.js",
     "test": "jest",
     "cover": "jest --coverage",
-    "lint": "eslint . --ext .ts --fix",
-    "lint:watch": "onchange src/**/*.ts -- eslint --fix {{changed}}"
+    "lint": "eslint src/**/*.{ts,js} --fix",
+    "lint:watch": "onchange src/**/*.{ts,js} -- eslint --fix {{changed}}"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +34,9 @@
       "@typescript-eslint/no-empty-interface": "off"
     }
   },
+  "eslintIgnore":  [
+    "coverage", "data", "dist", "node_modules"
+  ],
   "prettier": {
     "semi": true,
     "trailingComma": "none",
