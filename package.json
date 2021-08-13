@@ -13,6 +13,11 @@
   },
   "author": "",
   "license": "ISC",
+  "jest": {
+      "preset": "ts-jest",
+      "roots": ["<rootDir>/src"],
+      "testEnvironment": "node"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.0",
     "@types/node": "^16.4.13",
