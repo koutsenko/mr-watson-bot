@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-import * as Messages from './messages';
+import * as Messages from './constants/messages';
 import { initBot } from './telegraf';
 import { initEye } from './mtproto';
 import { initSleep } from './scheduler';

@@ -1,6 +1,6 @@
 import { Telegraf } from 'telegraf';
 
-import * as Messages from './messages';
+import * as Messages from './constants/messages';
 
 /**
  * Декоратор для хэндлеров телеграфа, добавляет проверку на владельца.
