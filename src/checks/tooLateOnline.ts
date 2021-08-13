@@ -4,7 +4,7 @@ import { isLateEvening, isNight } from '../util/datetime';
 /**
  * Проверка на то, что патрону пора спать.
  */
-export const shouldGoSleep = (status: IUserStatus) => {
+export const shouldGoSleep = (status: IUserStatus): boolean => {
   const online = status._ === 'userStatusOnline';
   const lateEvening = isLateEvening();
   const night = isNight();

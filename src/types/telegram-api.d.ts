@@ -4,6 +4,32 @@
  */
 type TUserStatusValue = 'userStatusOnline' | 'userStatusOffline';
 
+type TAlgo = {
+  g;
+  p;
+  salt1;
+  salt2;
+};
+
+/**
+ * Oject contains info on user authorization.
+ * https://core.telegram.org/type/auth.Authorization
+ */
+export interface IAuthAuthorization {
+  _: string;
+  srp_id: string;
+  current_algo: TAlgo;
+  srp_B: string;
+}
+
+/**
+ * Contains info on a confirmation code message sent via SMS, phone call or Telegram.
+ * https://core.telegram.org/type/auth.SentCode
+ */
+export interface IAuthSentCode {
+  phone_code_hash: string;
+}
+
 /**
  * Defines a user for subsequent interaction.
  * https://core.telegram.org/type/InputUser

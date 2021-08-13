@@ -18,7 +18,11 @@ import { IUser } from './types/telegram-api';
  * @param eye Инстанс глаза, который смотрит за происходящим.
  * @param bot Инстанс бота, который дает обратную связь.
  */
-export const initSleep = (eye: MTProto, bot: Telegraf, access_hash) => {
+export const initSleep = (
+  eye: MTProto,
+  bot: Telegraf,
+  access_hash: string
+): any => {
   const job = schedule.scheduleJob(everyMinute, async () => {
     const id = process.env.OWNER_CHAT_ID;
     const result: IUser = await eye.getUser(id, access_hash);

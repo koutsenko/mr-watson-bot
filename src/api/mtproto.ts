@@ -5,7 +5,12 @@
 import * as path from 'path';
 import MTProto from '@mtproto/core';
 import { sleep } from '@mtproto/core/src/utils/common';
-import { IInputUser } from '../types/telegram-api';
+import {
+  IInputUser,
+  IUser,
+  IAuthSentCode,
+  IAuthAuthorization
+} from '../types/telegram-api';
 
 /**
  * Класс-обертка над методами @mtproto/core. Назначение:
@@ -40,7 +45,7 @@ export default class API_mtproto {
    * @param [params] Параметры к методу, см. документацию на конкретный метод.
    * @param [options] Настройки @mtproto/core.
    */
-  call = async (method, params = {}, options = {}) => {
+  call = async (method: string, params = {}, options = {}): Promise<any> => {
     try {
       const result = await this.mtproto.call(method, params, options);
 
@@ -90,15 +95,16 @@ export default class API_mtproto {
     phone_code: string,
     phone_number: string,
     phone_code_hash: string
-  ) => this.call('auth.signIn', { phone_code, phone_number, phone_code_hash });
+  ): Promise<IAuthAuthorization> =>
+    this.call('auth.signIn', { phone_code, phone_number, phone_code_hash });
 
   /**
    * Получить информацию о себе, используется для проверки факта авторизации.
    * См. https://core.telegram.org/constructor/inputUserSelf.
    */
-  getSelf = async () => {
+  getSelf = async (): Promise<IUser> => {
     try {
-      const user = await this.call('users.getFullUser', {
+      const user: IUser = await this.call('users.getFullUser', {
         id: { _: 'inputUserSelf' }
       });
       return user;
@@ -114,7 +120,7 @@ export default class API_mtproto {
    * @param user_id User ID.
    * @param access_hash Access hash.
    */
-  getUser = async (user_id, access_hash) => {
+  getUser = async (user_id: string, access_hash: string): Promise<void> => {
     try {
       const inputUser: IInputUser = {
         _: 'inputUser',
@@ -134,7 +140,7 @@ export default class API_mtproto {
    *
    * @param phone_number Phone number in international format.
    */
-  sendCode = (phone_number: string) =>
+  sendCode = (phone_number: string): Promise<IAuthSentCode> =>
     this.call('auth.sendCode', {
       phone_number,
       settings: {
@@ -146,7 +152,8 @@ export default class API_mtproto {
    * Запрос конфигурации для двухфакторной аутентификации по паролю.
    * См. https://core.telegram.org/method/account.getPassword.
    */
-  getPassword = () => this.call('account.getPassword');
+  getPassword = (): Promise<IAuthAuthorization> =>
+    this.call('account.getPassword');
 
   /**
    * Двухфакторная аутентификация с использованием засоленного пароля.
@@ -156,7 +163,15 @@ export default class API_mtproto {
    * @param A SecureRemotePassword protocol parameter.
    * @param M1 SecureRemotePassword protocol parameter.
    */
-  checkPassword = ({ srp_id, A, M1 }) =>
+  checkPassword = ({
+    srp_id,
+    A,
+    M1
+  }: {
+    srp_id: string;
+    A: string;
+    M1: string;
+  }): Promise<IAuthAuthorization> =>
     this.call('auth.checkPassword', {
       password: {
         _: 'inputCheckPasswordSRP',

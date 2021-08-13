@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 /**
  * Вычисляет признак позднего вечера.
  */
-export const isLateEvening = () => {
+export const isLateEvening = (): boolean => {
   const hour = moment.tz('Europe/Moscow').hour();
   const result = hour === 23;
 
@@ -13,7 +13,7 @@ export const isLateEvening = () => {
 /**
  * Вычисляет признак поздней ночи.
  */
-export const isNight = () => {
+export const isNight = (): boolean => {
   const hour = moment.tz('Europe/Moscow').hour();
   const result = hour >= 0 && hour < 5;
 

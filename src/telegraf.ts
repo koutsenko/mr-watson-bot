@@ -31,11 +31,7 @@ export const initBot = async (): Promise<Telegraf> => {
   bot.help(handleHelp);
   bot.on('sticker', handleSticker);
   bot.hears('hi', handleHi);
-  try {
-    await bot.launch();
-  } catch (err) {
-    throw err;
-  }
+  await bot.launch();
 
   return bot;
 };

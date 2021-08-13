@@ -54,7 +54,7 @@ const EP = async (): Promise<void> => {
   config();
   const checkResult: boolean = check();
   if (!checkResult) {
-    return;
+    process.exit();
   }
 
   // Инициализация бота - Telegram Bot API, библиотека telegraf
@@ -74,7 +74,7 @@ const EP = async (): Promise<void> => {
     }
   } finally {
     if (!botStarted) {
-      return;
+      process.exit();
     }
   }
   console.log(Messages.SUCCESS_START_BOT);
@@ -92,7 +92,7 @@ const EP = async (): Promise<void> => {
     console.log('Eye error UNKNOWN:', error);
   } finally {
     if (!eyeStarted) {
-      return;
+      process.exit();
     }
   }
   console.log(Messages.SUCCESS_START_EYE);

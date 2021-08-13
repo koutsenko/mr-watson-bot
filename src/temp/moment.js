@@ -3,6 +3,7 @@
  * Запускать: node ./src/temp/moment.
  */
 
+// eslint-disable-next-line
 const moment = require('moment-timezone');
 
 const query_date = () => {

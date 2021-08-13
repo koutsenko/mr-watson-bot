@@ -3,8 +3,7 @@
  * Дополняет модуль telegraf, поскольку через API ботов доступны не все функции.
  */
 import * as MTProto from '@mtproto/core';
-
-const prompt = require('prompt');
+import prompt from 'prompt';
 
 import API_mtproto from './api/mtproto';
 import { IUser } from './types/telegram-api';
@@ -16,7 +15,7 @@ import { IUser } from './types/telegram-api';
  * @param api Модуль Telegram API (mtproto).
  */
 const authorize = async (api: API_mtproto) => {
-  const user = await api.getSelf();
+  const user: IUser = await api.getSelf();
   console.log(JSON.stringify(user));
   if (!user) {
     const phone_number = process.env.USER_PHONE_NUMBER;
