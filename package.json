@@ -9,14 +9,62 @@
     "build": "npm run clean && npm run compile",
     "start": "node dist/index.js",
     "test": "jest",
-    "cover": "jest --coverage"
+    "cover": "jest --coverage",
+    "lint": "eslint src/**/*.{ts,js} --fix",
+    "lint:watch": "onchange src/**/*.{ts,js} -- eslint --fix {{changed}}"
   },
   "author": "",
   "license": "ISC",
+  "eslintConfig": {
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-empty-interface": "off",
+      "@typescript-eslint/no-explicit-any": "off"
+    }
+  },
+  "eslintIgnore":  [
+    "coverage", "data", "dist", "node_modules"
+  ],
+  "prettier": {
+    "semi": true,
+    "trailingComma": "none",
+    "singleQuote": true,
+    "printWidth": 80
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testEnvironment": "node"
+  },
   "devDependencies": {
     "@types/jest": "^27.0.0",
     "@types/node": "^16.4.13",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.6",
+    "onchange": "^7.1.0",
+    "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
