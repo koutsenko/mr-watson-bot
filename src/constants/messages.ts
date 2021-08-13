@@ -13,15 +13,15 @@ export const NO_USER_PHONE_NUMBER: string = wrapUserVar("USER_PHONE_NUMBER");
 export const NO_USER_TG_CLOUD_PASSWORD: string = wrapUserVar("USER_TG_CLOUD_PASSWORD");
 
 // Стартовые ошибки
-export const ERROR_UNAUTHORIZED: string = "401 unauthorized, check BOT_TOKEN or @BotFather";
+export const ERROR_UNAUTHORIZED = "401 unauthorized, check BOT_TOKEN or @BotFather";
 
 // Системные сообщения
-export const SUCCESS_START_BOT: string = "started: bot module";
-export const SUCCESS_START_EYE: string = "started: human eye";
-export const SUCCESS_START: string = "started: application";
+export const SUCCESS_START_BOT = "started: bot module";
+export const SUCCESS_START_EYE = "started: human eye";
+export const SUCCESS_START = "started: application";
 
 // Пользовательские фразы
-export const MSG_STICKER: string = "Send me a sticker";
-export const MSG_WELCOME: string = "Welcome";
-export const MSG_SUPER: string = "👍";
-export const MSG_HELLO: string = "Hey there";
+export const MSG_STICKER = "Send me a sticker";
+export const MSG_WELCOME = "Welcome";
+export const MSG_SUPER = "👍";
+export const MSG_HELLO = "Hey there";

@@ -11,7 +11,7 @@ import { initSleep } from './scheduler';
  * @returns Результат проверки
  */
 const check = (): boolean => {
-    let result: boolean = true;
+    let result = true;
 
     if (!process.env.BOT_TOKEN) {
         console.error(`Error: ${Messages.NO_BOT_TOKEN}`);
@@ -95,7 +95,7 @@ const EP = async (): Promise<void> => {
     console.log(Messages.SUCCESS_START_EYE);
 
     // Инициализация периодических задач
-    let job = initSleep(eye, bot, access_hash);
+    const job = initSleep(eye, bot, access_hash);
 
     // Пост-инициализация. Поддержка "мягкого" завершения работы
     process.once('SIGINT', () => {
