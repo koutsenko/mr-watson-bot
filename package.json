@@ -12,8 +12,8 @@
     "cover": "jest --coverage",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "prettier":  "prettier src/**/*.ts",
-    "prettier:fix":  "prettier src/**/*.ts --write"
+    "prettier": "prettier src/**/*.ts",
+    "prettier:fix": "prettier src/**/*.ts --write"
   },
   "author": "",
   "license": "ISC",
@@ -21,14 +21,17 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "plugins": [
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "prettier"
     ],
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
     ],
     "rules": {
+      "prettier/prettier": "error",
       "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/no-empty-interface": "off"
     }
@@ -52,6 +55,8 @@
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
