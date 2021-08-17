@@ -1,4 +1,7 @@
-import { describe, it, expect, test } from '@jest/globals';
+import { describe, expect, it, test } from '@jest/globals';
+
+import { overrideTime } from '../util/spec/tools';
+import { isLateEvening, isNight } from './datetime';
 import {
   time0000,
   time0001,
@@ -13,8 +16,6 @@ import {
   time2330,
   time2359
 } from './spec/constants';
-import { overrideTime } from '../util/spec/tools';
-import { isLateEvening, isNight } from './datetime';
 
 const isLateEveningResults = [
   [time0000, false],

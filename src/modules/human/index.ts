@@ -5,8 +5,17 @@
 import * as MTProto from '@mtproto/core';
 import prompt from 'prompt';
 
-import API_mtproto from './api/mtproto';
-import { IUser } from './types/telegram-api';
+import API_mtproto from '../../api/mtproto';
+import { IUser } from '../../types/telegram-api';
+
+/**
+ * Обработчик ошибки интерфейса человека.
+ */
+export const handleHumanError = (error: Error): void => {
+  console.log('Human module error UNKNOWN:', error);
+
+  process.exit();
+};
 
 /**
  * Процедура авторизации.
@@ -63,7 +72,7 @@ const authorize = async (api: API_mtproto) => {
 /**
  * Инициализация модуля с Telegram API.
  */
-export const initEye = async (): Promise<[MTProto, string]> => {
+export const initHuman = async (): Promise<[MTProto, string]> => {
   const api: API_mtproto = new API_mtproto();
   await authorize(api);
 

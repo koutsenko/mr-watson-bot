@@ -17,13 +17,16 @@ export const NO_USER_TG_CLOUD_PASSWORD: string = wrapUserVar(
   'USER_TG_CLOUD_PASSWORD'
 );
 
+// Общая ошибка загрузки и проверки переменных окружения
+export const ERROR_CONFIG_LOAD = 'cannot load env';
+
 // Стартовые ошибки
 export const ERROR_UNAUTHORIZED =
   '401 unauthorized, check BOT_TOKEN or @BotFather';
 
 // Системные сообщения
 export const SUCCESS_START_BOT = 'started: bot module';
-export const SUCCESS_START_EYE = 'started: human eye';
+export const SUCCESS_START_HUMAN = 'started: human module';
 export const SUCCESS_START = 'started: application';
 
 // Пользовательские фразы

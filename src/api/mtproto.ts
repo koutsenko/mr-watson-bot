@@ -2,14 +2,15 @@
  * Базовый модуль для работы с mtproto API.
  * Основан на примере https://mtproto-core.js.org/docs/setup-handle-errors.
  */
-import * as path from 'path';
 import MTProto from '@mtproto/core';
 import { sleep } from '@mtproto/core/src/utils/common';
+import * as path from 'path';
+
 import {
-  IInputUser,
-  IUser,
+  IAuthAuthorization,
   IAuthSentCode,
-  IAuthAuthorization
+  IInputUser,
+  IUser
 } from '../types/telegram-api';
 
 /**
@@ -31,7 +32,7 @@ export default class API_mtproto {
       api_id: process.env.USER_API_ID,
       api_hash: process.env.USER_API_HASH,
       storageOptions: {
-        path: path.resolve(__dirname, '..', 'data', 'eye.json')
+        path: path.resolve(__dirname, '..', 'data', 'human.json')
       }
     });
   }
