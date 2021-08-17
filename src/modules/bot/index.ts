@@ -13,11 +13,7 @@ interface IBotError extends Error {
  * Обработчик ошибки инициализации бота.
  */
 export const handleBotError = (error: IBotError): void => {
-  console.log(1, error);
-  if (
-    error?.response?.error_code === 401 &&
-    error?.response?.description === 'Unauthorized'
-  ) {
+  if (error?.response?.error_code === 401 && error?.response?.description === 'Unauthorized') {
     console.log(`Bot module error: ${Messages.ERROR_UNAUTHORIZED}`);
   } else {
     console.log('Bot module error UNKNOWN:', error);

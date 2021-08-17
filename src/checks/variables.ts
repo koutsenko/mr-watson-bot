@@ -1,42 +1,39 @@
 import * as Messages from '../constants/messages';
 
+const varsMap = {
+  BOT_TOKEN: Messages.NO_BOT_TOKEN,
+  OWNER_CHAT_ID: Messages.NO_OWNER_CHAT_ID,
+  USER_API_ID: Messages.NO_USER_API_ID,
+  USER_API_HASH: Messages.NO_USER_API_HASH,
+  USER_PHONE_NUMBER: Messages.NO_USER_PHONE_NUMBER,
+  USER_TG_CLOUD_PASSWORD: Messages.NO_USER_TG_CLOUD_PASSWORD
+};
+
 /**
- * Проверка переменных окружения.
- *
- * @returns Результат проверки
+ * Обработчик ошибки инициализации переменных.
  */
-export const checkConfigVariablesSuccess = (): boolean => {
-  let result = true;
+export const handleVarsError = (): void => {
+  console.log(Messages.ERROR_CONFIG_LOAD);
+  process.exit();
+};
 
-  if (!process.env.BOT_TOKEN) {
-    console.error(`Error: ${Messages.NO_BOT_TOKEN}`);
-    result = false;
-  }
-
-  if (!process.env.OWNER_CHAT_ID) {
-    console.error(`Error: ${Messages.NO_OWNER_CHAT_ID}`);
-    result = false;
-  }
-
-  if (!process.env.USER_API_ID) {
-    console.error(`Error: ${Messages.NO_USER_API_ID}`);
-    result = false;
-  }
-
-  if (!process.env.USER_API_HASH) {
-    console.error(`Error: ${Messages.NO_USER_API_HASH}`);
-    result = false;
-  }
-
-  if (!process.env.USER_PHONE_NUMBER) {
-    console.error(`Error: ${Messages.NO_USER_PHONE_NUMBER}`);
-    result = false;
-  }
-
-  if (!process.env.USER_TG_CLOUD_PASSWORD) {
-    console.error(`Error: ${Messages.NO_USER_TG_CLOUD_PASSWORD}`);
-    result = false;
+/**
+ * Функция проверки отдельно взятой переменной окружения.
+ *
+ * @param envVarName Имя переменной окружения.
+ */
+const varIsSet = (envVarName: string): boolean => {
+  const result = !!process.env[envVarName];
+  if (!result) {
+    console.error(`Error: ${varsMap[envVarName]}`);
   }
 
   return result;
 };
+
+/**
+ * Проверка переменных окружения.
+ *
+ * @returns Результат проверки, true если все нормально.
+ */
+export const varsAreSet = (): boolean => Object.keys(varsMap).every(varIsSet);

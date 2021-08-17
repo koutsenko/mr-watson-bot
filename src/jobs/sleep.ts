@@ -17,11 +17,7 @@ import { IUser } from '../types/telegram-api';
  * @param mHuman Инстанс модуля человека, который смотрит за происходящим.
  * @param human_access_hash Хэш доступа к метаданным учетной записи.
  */
-export const initSleepJob = (
-  mHuman: MTProto,
-  mBot: Telegraf,
-  human_access_hash: string
-): any => {
+export const initSleepJob = (mHuman: MTProto, mBot: Telegraf, human_access_hash: string): any => {
   const job = schedule.scheduleJob(everyMinute, async () => {
     const id = process.env.OWNER_CHAT_ID;
     const result: IUser = await mHuman.getUser(id, human_access_hash);

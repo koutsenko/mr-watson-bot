@@ -33,11 +33,7 @@ const authorize = async (api: API_mtproto) => {
     const { phone_code } = await prompt.get(['phone_code']);
 
     try {
-      const signInResult = await api.signIn(
-        phone_code,
-        phone_number,
-        phone_code_hash
-      );
+      const signInResult = await api.signIn(phone_code, phone_number, phone_code_hash);
       if (signInResult._ === 'auth.authorizationSignUpRequired') {
         console.log('Error: аккаунта с таким номером не существует');
         // TODO сделать универсальную процедуру завершения работы на все случаи.

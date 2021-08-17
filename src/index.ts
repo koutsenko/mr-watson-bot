@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-import { checkConfigVariablesSuccess } from './checks/variables';
+import { handleVarsError, varsAreSet } from './checks/variables';
 import * as Messages from './constants/messages';
 import { initSleepJob } from './jobs/sleep';
 import { handleBotError, initBot } from './modules/bot';
@@ -11,9 +11,8 @@ import { handleHumanError, initHuman } from './modules/human';
  */
 const EP = async (): Promise<void> => {
   // Загрузка и проверка переменных окружения
-  if (config().error || !checkConfigVariablesSuccess()) {
-    console.log(Messages.ERROR_CONFIG_LOAD);
-    process.exit();
+  if (config().error || !varsAreSet()) {
+    handleVarsError();
   }
 
   // Инициализация модуля bot

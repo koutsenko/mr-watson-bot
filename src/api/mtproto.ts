@@ -6,12 +6,7 @@ import MTProto from '@mtproto/core';
 import { sleep } from '@mtproto/core/src/utils/common';
 import * as path from 'path';
 
-import {
-  IAuthAuthorization,
-  IAuthSentCode,
-  IInputUser,
-  IUser
-} from '../types/telegram-api';
+import { IAuthAuthorization, IAuthSentCode, IInputUser, IUser } from '../types/telegram-api';
 
 /**
  * Класс-обертка над методами @mtproto/core. Назначение:
@@ -92,11 +87,7 @@ export default class API_mtproto {
    * @param phone_code_hash SMS-message ID, obtained from auth.sendCode.
    * @param phone_number Phone number in the international format.
    */
-  signIn = (
-    phone_code: string,
-    phone_number: string,
-    phone_code_hash: string
-  ): Promise<IAuthAuthorization> =>
+  signIn = (phone_code: string, phone_number: string, phone_code_hash: string): Promise<IAuthAuthorization> =>
     this.call('auth.signIn', { phone_code, phone_number, phone_code_hash });
 
   /**
@@ -153,8 +144,7 @@ export default class API_mtproto {
    * Запрос конфигурации для двухфакторной аутентификации по паролю.
    * См. https://core.telegram.org/method/account.getPassword.
    */
-  getPassword = (): Promise<IAuthAuthorization> =>
-    this.call('account.getPassword');
+  getPassword = (): Promise<IAuthAuthorization> => this.call('account.getPassword');
 
   /**
    * Двухфакторная аутентификация с использованием засоленного пароля.
@@ -164,15 +154,7 @@ export default class API_mtproto {
    * @param A SecureRemotePassword protocol parameter.
    * @param M1 SecureRemotePassword protocol parameter.
    */
-  checkPassword = ({
-    srp_id,
-    A,
-    M1
-  }: {
-    srp_id: string;
-    A: string;
-    M1: string;
-  }): Promise<IAuthAuthorization> =>
+  checkPassword = ({ srp_id, A, M1 }: { srp_id: string; A: string; M1: string }): Promise<IAuthAuthorization> =>
     this.call('auth.checkPassword', {
       password: {
         _: 'inputCheckPasswordSRP',
