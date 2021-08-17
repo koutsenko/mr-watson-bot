@@ -5,7 +5,7 @@ import * as Messages from '../constants/messages';
  *
  * @returns Результат проверки
  */
-export const checkConfigVariables = (): boolean => {
+export const checkConfigVariablesSuccess = (): boolean => {
   let result = true;
 
   if (!process.env.BOT_TOKEN) {

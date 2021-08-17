@@ -1,5 +1,8 @@
-import { describe, it, expect, test } from '@jest/globals';
+import { describe, expect, it, test } from '@jest/globals';
+
 import {
+  statusOffline,
+  statusOnline,
   time0000,
   time0001,
   time0030,
@@ -11,9 +14,7 @@ import {
   time2300,
   time2301,
   time2330,
-  time2359,
-  statusOnline,
-  statusOffline
+  time2359
 } from '../util/spec/constants';
 import { overrideTime } from '../util/spec/tools';
 import { shouldGoSleep } from './tooLateOnline';

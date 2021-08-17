@@ -1,73 +1,53 @@
 import { config } from 'dotenv';
 
+import { checkConfigVariablesSuccess } from './checks/variables';
 import * as Messages from './constants/messages';
-import { initBot } from './telegraf';
-import { initEye } from './mtproto';
-import { initSleep } from './scheduler';
-import { checkConfigVariables } from './checks/variables';
+import { initSleepJob } from './jobs/sleep';
+import { handleBotError, initBot } from './modules/bot';
+import { handleHumanError, initHuman } from './modules/human';
 
 /**
  * Точка входа.
  */
 const EP = async (): Promise<void> => {
   // Загрузка и проверка переменных окружения
-  if (config().error || checkConfigVariables()) {
+  if (config().error || !checkConfigVariablesSuccess()) {
+    console.log(Messages.ERROR_CONFIG_LOAD);
     process.exit();
   }
 
-  // Инициализация бота - Telegram Bot API, библиотека telegraf
-  let bot;
-  let botStarted = false;
+  // Инициализация модуля bot
+  let bot_module;
   try {
-    bot = await initBot();
-    botStarted = true;
+    bot_module = await initBot();
+    console.log(Messages.SUCCESS_START_BOT);
   } catch (error) {
-    if (
-      error?.response?.error_code === 401 &&
-      error?.response?.description === 'Unauthorized'
-    ) {
-      console.log(`Bot error: ${Messages.ERROR_UNAUTHORIZED}`);
-    } else {
-      console.log('Bot error UNKNOWN:', error);
-    }
-  } finally {
-    if (!botStarted) {
-      process.exit();
-    }
+    handleBotError(error);
   }
-  console.log(Messages.SUCCESS_START_BOT);
 
-  // Инициализация "человеческого глаза" - Telegram API, библиотека mtproto
-  let eye;
-  let access_hash;
-  let eyeStarted = false;
+  // Инициализация модуля human
+  let human_module, human_access_hash;
   try {
-    const data = await initEye();
-    eye = data[0];
-    access_hash = data[1];
-    eyeStarted = true;
+    [human_module, human_access_hash] = await initHuman();
+    console.log(Messages.SUCCESS_START_HUMAN);
   } catch (error) {
-    console.log('Eye error UNKNOWN:', error);
-  } finally {
-    if (!eyeStarted) {
-      process.exit();
-    }
+    handleHumanError(error);
   }
-  console.log(Messages.SUCCESS_START_EYE);
 
   // Инициализация периодических задач
-  const job = initSleep(eye, bot, access_hash);
+  const sleepJob = initSleepJob(human_module, bot_module, human_access_hash);
 
   // Пост-инициализация. Поддержка "мягкого" завершения работы
   process.once('SIGINT', () => {
-    job.cancel();
-    bot.stop('SIGINT');
+    sleepJob.cancel();
+    bot_module.stop('SIGINT');
   });
   process.once('SIGTERM', () => {
-    job.cancel();
-    bot.stop('SIGTERM');
+    sleepJob.cancel();
+    bot_module.stop('SIGTERM');
   });
   console.log(Messages.SUCCESS_START);
 };
 
+console.log('hi');
 EP();
