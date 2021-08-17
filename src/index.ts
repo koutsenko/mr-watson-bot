@@ -4,56 +4,14 @@ import * as Messages from './constants/messages';
 import { initBot } from './telegraf';
 import { initEye } from './mtproto';
 import { initSleep } from './scheduler';
-
-/**
- * Стартовые проверки конфигурации.
- *
- * @returns Результат проверки
- */
-const check = (): boolean => {
-  let result = true;
-
-  if (!process.env.BOT_TOKEN) {
-    console.error(`Error: ${Messages.NO_BOT_TOKEN}`);
-    result = false;
-  }
-
-  if (!process.env.OWNER_CHAT_ID) {
-    console.error(`Error: ${Messages.NO_OWNER_CHAT_ID}`);
-    result = false;
-  }
-
-  if (!process.env.USER_API_ID) {
-    console.error(`Error: ${Messages.NO_USER_API_ID}`);
-    result = false;
-  }
-
-  if (!process.env.USER_API_HASH) {
-    console.error(`Error: ${Messages.NO_USER_API_HASH}`);
-    result = false;
-  }
-
-  if (!process.env.USER_PHONE_NUMBER) {
-    console.error(`Error: ${Messages.NO_USER_PHONE_NUMBER}`);
-    result = false;
-  }
-
-  if (!process.env.USER_TG_CLOUD_PASSWORD) {
-    console.error(`Error: ${Messages.NO_USER_TG_CLOUD_PASSWORD}`);
-    result = false;
-  }
-
-  return result;
-};
+import { checkConfigVariables } from './checks/variables';
 
 /**
  * Точка входа.
  */
 const EP = async (): Promise<void> => {
   // Загрузка и проверка переменных окружения
-  config();
-  const checkResult: boolean = check();
-  if (!checkResult) {
+  if (config().error || checkConfigVariables()) {
     process.exit();
   }
 
