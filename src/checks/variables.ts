@@ -1,4 +1,5 @@
 import * as Messages from '../constants/messages';
+import { log } from '../util/log';
 
 const varsMap = {
   BOT_TOKEN: Messages.NO_BOT_TOKEN,
@@ -13,7 +14,7 @@ const varsMap = {
  * Обработчик ошибки инициализации переменных.
  */
 export const handleVarsError = (): void => {
-  console.log(Messages.ERROR_CONFIG_LOAD);
+  log(Messages.ERROR_CONFIG_LOAD);
   process.exit();
 };
 
@@ -25,7 +26,7 @@ export const handleVarsError = (): void => {
 const varIsSet = (envVarName: string): boolean => {
   const result = !!process.env[envVarName];
   if (!result) {
-    console.error(`Error: ${varsMap[envVarName]}`);
+    log(`Error: ${varsMap[envVarName]}`);
   }
 
   return result;

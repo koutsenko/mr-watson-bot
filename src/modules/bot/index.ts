@@ -1,6 +1,7 @@
 import { Telegraf } from 'telegraf';
 
 import * as Messages from '../../constants/messages';
+import { log } from '../../util/log';
 
 interface IBotError extends Error {
   response?: {
@@ -14,9 +15,9 @@ interface IBotError extends Error {
  */
 export const handleBotError = (error: IBotError): void => {
   if (error?.response?.error_code === 401 && error?.response?.description === 'Unauthorized') {
-    console.log(`Bot module error: ${Messages.ERROR_UNAUTHORIZED}`);
+    log(`Bot module error: ${Messages.ERROR_UNAUTHORIZED}`);
   } else {
-    console.log('Bot module error UNKNOWN:', error);
+    log(`Bot module error UNKNOWN: ${error}`);
   }
 
   process.exit();

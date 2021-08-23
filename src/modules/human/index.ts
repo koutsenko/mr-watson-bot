@@ -7,12 +7,13 @@ import prompt from 'prompt';
 
 import API_mtproto from '../../api/mtproto';
 import { IUser } from '../../types/telegram-api';
+import { log } from '../../util/log';
 
 /**
  * Обработчик ошибки интерфейса человека.
  */
 export const handleHumanError = (error: Error): void => {
-  console.log('Human module error UNKNOWN:', error);
+  log(`Human module error UNKNOWN: ${error}`);
 
   process.exit();
 };
@@ -25,7 +26,7 @@ export const handleHumanError = (error: Error): void => {
  */
 const authorize = async (api: API_mtproto) => {
   const user: IUser = await api.getSelf();
-  console.log(JSON.stringify(user));
+  log(JSON.stringify(user));
   if (!user) {
     const phone_number = process.env.USER_PHONE_NUMBER;
     const { phone_code_hash } = await api.sendCode(phone_number);
@@ -35,13 +36,13 @@ const authorize = async (api: API_mtproto) => {
     try {
       const signInResult = await api.signIn(phone_code, phone_number, phone_code_hash);
       if (signInResult._ === 'auth.authorizationSignUpRequired') {
-        console.log('Error: аккаунта с таким номером не существует');
+        log('Error: аккаунта с таким номером не существует');
         // TODO сделать универсальную процедуру завершения работы на все случаи.
         process.exit();
       }
     } catch (error) {
       if (error.error_message !== 'SESSION_PASSWORD_NEEDED') {
-        console.log(`error:`, error);
+        log(`error: ${error}`);
         return;
       }
 
@@ -59,7 +60,7 @@ const authorize = async (api: API_mtproto) => {
       });
       const checkPasswordResult = await api.checkPassword({ srp_id, A, M1 });
       if (checkPasswordResult) {
-        console.log('Authentication successful after entering 2FA');
+        log('Authentication successful after entering 2FA');
       }
     }
   }
