@@ -28,7 +28,7 @@ export default class API_mtproto {
       api_id: process.env.USER_API_ID,
       api_hash: process.env.USER_API_HASH,
       storageOptions: {
-        path: path.resolve(__dirname, '..', 'data', 'human.json')
+        path: path.resolve(__dirname, '..', '..', 'data', 'human.json')
       }
     });
   }
