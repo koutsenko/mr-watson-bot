@@ -4,11 +4,11 @@
  */
 import * as schedule from 'node-schedule';
 
-import { shouldGoSleep } from '../../../checks/tooLateOnline';
 import { everyMinute } from '../../../constants/jobs';
 import { IAppState } from '../../../types/state';
 import { IUser } from '../../../types/telegram-api';
 import { log } from '../../../util/log';
+import { shouldGoSleep } from '../checks/tooLateOnline';
 import { EScenarioState, IScenarioState, setState } from '../state';
 
 /**

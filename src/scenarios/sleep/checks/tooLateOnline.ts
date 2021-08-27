@@ -1,5 +1,5 @@
-import { IUserStatus } from '../types/telegram-api';
-import { isLateEvening, isNight } from '../util/datetime';
+import { IUserStatus } from '../../../types/telegram-api';
+import { isLateEvening, isNight } from '../../../util/datetime';
 
 /**
  * Проверка на то, что патрону пора спать.

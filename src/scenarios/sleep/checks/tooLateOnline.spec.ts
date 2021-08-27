@@ -15,8 +15,8 @@ import {
   time2301,
   time2330,
   time2359
-} from '../util/spec/constants';
-import { overrideTime } from '../util/spec/tools';
+} from '../../../util/spec/constants';
+import { overrideTime } from '../../../util/spec/tools';
 import { shouldGoSleep } from './tooLateOnline';
 
 const shouldGoSleepResults = [
