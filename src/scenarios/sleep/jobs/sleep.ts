@@ -8,7 +8,7 @@ import { everyMinute } from '../../../constants/jobs';
 import { IAppState } from '../../../types/state';
 import { IUser } from '../../../types/telegram-api';
 import { log } from '../../../util/log';
-import { shouldGoSleep } from '../checks/tooLateOnline';
+import { shouldCheckStatus, shouldGoSleep } from '../checks/tooLateOnline';
 import { EScenarioState, IScenarioState, setState } from '../state';
 
 /**
@@ -23,6 +23,10 @@ export const initSleepJob = (state: IAppState, localState: IScenarioState): sche
     const id = process.env.OWNER_CHAT_ID;
     switch (localState.state) {
       case EScenarioState.STATE_IDLE: {
+        // Если неактуально, идлим дальше
+        if (!shouldCheckStatus()) {
+          break;
+        }
         setState(EScenarioState.STATE_QUERYING);
         const result: IUser = await human_module.getUser(id, human_access_hash);
         const { status } = result.user;
@@ -35,6 +39,12 @@ export const initSleepJob = (state: IAppState, localState: IScenarioState): sche
         break;
       }
       case EScenarioState.STATE_WAITING_FOR_SLEEP: {
+        // Если уже неактуально, переводим сценарий в режим идла.
+        if (!shouldCheckStatus()) {
+          setState(EScenarioState.STATE_IDLE);
+          break;
+        }
+
         // Ждем 5 минут, используя ежеминутную джобу сценария.
         const ticks = localState.data.ticks + 1;
         if (ticks < 5) {
