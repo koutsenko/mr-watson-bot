@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 
+import { isVerboseMode } from './checks/isVerbose';
 import { handleVarsError, varsAreSet } from './checks/variables';
 import * as Messages from './constants/messages';
 import { handleBotError, initBot } from './modules/bot';
@@ -14,7 +15,7 @@ import { log } from './util/log';
  */
 const EP = async (): Promise<void> => {
   // Глобальное состояние приложения
-  const state: IAppState = initEmptyAppState(true);
+  const state: IAppState = initEmptyAppState();
 
   // Загрузка и проверка переменных окружения
   if (config().error || !varsAreSet()) {
@@ -46,5 +47,5 @@ const EP = async (): Promise<void> => {
   log(Messages.SUCCESS_START);
 };
 
-log('Entering entry point');
+log(`Entering entry point${isVerboseMode() ? ', verbose enabled' : ''}`);
 EP();

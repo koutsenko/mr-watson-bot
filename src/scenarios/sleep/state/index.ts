@@ -1,4 +1,4 @@
-import { log } from '../../../util/log';
+import { verbose } from '../../../util/log';
 
 /**
  * Варианты значений локального состояния.
@@ -38,7 +38,7 @@ export interface IScenarioState {
 export const setState = (nextState: EScenarioState, nextStateData = {}): void => {
   const prevStateValue = EScenarioState[localState.state];
   const nextStateValue = EScenarioState[nextState];
-  log(`prev: ${prevStateValue}, next: ${nextStateValue}`);
+  verbose(`prev: ${prevStateValue}, next: ${nextStateValue}`);
 
   localState.state = nextState;
   localState.data = nextStateData;

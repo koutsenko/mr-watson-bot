@@ -7,7 +7,7 @@ import * as schedule from 'node-schedule';
 import { everyMinute } from '../../../constants/jobs';
 import { IAppState } from '../../../types/state';
 import { IUser } from '../../../types/telegram-api';
-import { log } from '../../../util/log';
+import { log, verbose } from '../../../util/log';
 import { shouldCheckStatus, shouldGoSleep } from '../checks/tooLateOnline';
 import { EScenarioState, IScenarioState, setState } from '../state';
 
@@ -17,9 +17,9 @@ import { EScenarioState, IScenarioState, setState } from '../state';
  * @param state состояние приложения.
  */
 export const initSleepJob = (state: IAppState, localState: IScenarioState): schedule => {
-  const { debug, human_module, bot_module, human_access_hash } = state;
+  const { human_module, bot_module, human_access_hash } = state;
   const job: schedule = schedule.scheduleJob(everyMinute, async () => {
-    debug && log('sleep job cycle');
+    verbose('sleep job cycle');
     const id = process.env.OWNER_CHAT_ID;
     switch (localState.state) {
       case EScenarioState.STATE_IDLE: {

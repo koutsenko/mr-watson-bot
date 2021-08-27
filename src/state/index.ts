@@ -2,15 +2,12 @@ import { IAppState } from '../types/state';
 
 /**
  * Инициализация начального стейта приложения.
- *
- * @param [debug] Опциональный флаг для debug режима.
  */
-export const initEmptyAppState = (debug = false): IAppState => ({
+export const initEmptyAppState = (): IAppState => ({
   bot_module: null,
   human_access_hash: null,
   human_module: null,
-  jobs: [],
-  debug
+  jobs: []
 });
 
 /**
