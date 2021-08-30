@@ -27,6 +27,7 @@ export const initSleepJob = (state: IAppState, localState: IScenarioState): sche
         if (!shouldCheckStatus()) {
           break;
         }
+
         setState(EScenarioState.STATE_QUERYING);
         const result: IUser = await human_module.getUser(id, human_access_hash);
         const { status } = result.user;
@@ -45,21 +46,23 @@ export const initSleepJob = (state: IAppState, localState: IScenarioState): sche
           break;
         }
 
-        // Ждем 5 минут, используя ежеминутную джобу сценария.
+        // Если 5 минут не прошло, продолжаем ждать, используя ежеминутную джобу сценария.
         const ticks = localState.data.ticks + 1;
         if (ticks < 5) {
           setState(EScenarioState.STATE_WAITING_FOR_SLEEP, { ticks });
-        } else {
-          setState(EScenarioState.STATE_QUERYING);
-          const result: IUser = await human_module.getUser(id, human_access_hash);
-          const { status } = result.user;
-          if (shouldGoSleep(status)) {
-            bot_module.telegram.sendMessage(id, 'Почему ты не спишь? Жду ответа');
-            setState(EScenarioState.STATE_WAITING_FOR_ANSWER);
-          } else {
-            setState(EScenarioState.STATE_IDLE);
-          }
+          break;
         }
+
+        setState(EScenarioState.STATE_QUERYING);
+        const result: IUser = await human_module.getUser(id, human_access_hash);
+        const { status } = result.user;
+        if (shouldGoSleep(status)) {
+          bot_module.telegram.sendMessage(id, 'Почему ты не спишь? Жду ответа');
+          setState(EScenarioState.STATE_WAITING_FOR_ANSWER);
+        } else {
+          setState(EScenarioState.STATE_IDLE);
+        }
+
         break;
       }
       case EScenarioState.STATE_WAITING_FOR_ANSWER: {
