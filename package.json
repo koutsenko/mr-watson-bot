@@ -10,8 +10,8 @@
     "build": "npm run clean && npm run compile",
     "start:verbose": "cross-env VERBOSE=true node dist/index.js",
     "start:prod": "node dist/index.js",
-    "watch:verbose": "nodemon --exec npm run start:verbose",
-    "watch:prod": "nodemon --exec npm run start:prod",
+    "watch:verbose": "nodemon --exec cross-env VERBOSE=true node dist/index.js",
+    "watch:prod": "nodemon --exec node dist/index.js",
     "test": "jest",
     "cover": "jest --coverage",
     "lint": "eslint src/**/*.{ts,js} --fix",
@@ -21,7 +21,9 @@
   "author": "",
   "license": "ISC",
   "nodemonConfig": {
-    "watch": ["dist/*"],
+    "watch": [
+      "dist/*"
+    ],
     "delay": 1000,
     "signal": "SIGTERM"
   },
@@ -90,6 +92,7 @@
   },
   "dependencies": {
     "@mtproto/core": "^6.0.1",
+    "chalk": "^4.1.2",
     "dateformat": "^4.5.1",
     "dotenv": "^10.0.0",
     "moment-timezone": "^0.5.33",
