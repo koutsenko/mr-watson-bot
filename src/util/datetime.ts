@@ -24,7 +24,7 @@ export const isNight = (): boolean => {
 /**
  * Возвращает штап текущего времени вида dd.mm.yyyy HH:MM:ss.
  */
-export const getReadableTimestamp = () => {
+export const getReadableTimestamp = (): string => {
   const now = new Date();
   const result = dateformat(now, 'dd.mm.yyyy HH:MM:ss');
 

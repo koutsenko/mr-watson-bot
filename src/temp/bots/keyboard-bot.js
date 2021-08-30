@@ -8,7 +8,9 @@
  * Запускать: node ./src/temp/bots/keyboard-bot.
  */
 
+// eslint-disable-next-line
 const { Telegraf, Markup } = require('telegraf');
+// eslint-disable-next-line
 const { config } = require('dotenv');
 
 config();

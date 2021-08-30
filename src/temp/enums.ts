@@ -1,6 +1,6 @@
 /**
  * Песочница для проверки печати енамов.
- * Запускать: 
+ * Запускать:
  * npx tsc ./src/temp/enums.ts
  * node ./src/temp/enums.js
  */
