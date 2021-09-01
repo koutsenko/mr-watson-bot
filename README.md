@@ -11,6 +11,10 @@
 Если нужно просто собрать и запустить:
 - npm install
 - npm run build
-- npm start:prod
+- npm run exec
 
-Про стек, код и npm-таски - см. ./docs/DEV.md.
+Если нужен live режим для разработки:
+- npm install
+- npm start
+
+Про стек и код - см. ./docs/DEV.md.

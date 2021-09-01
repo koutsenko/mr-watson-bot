@@ -19,7 +19,7 @@ import { EScenarioState, IScenarioState, setState } from '../state';
 export const initSleepJob = (state: IAppState, localState: IScenarioState): schedule => {
   const { human_module, bot_module, human_access_hash } = state;
   const job: schedule = schedule.scheduleJob(everyMinute, async () => {
-    verbose('sleep job cycle');
+    verbose(`sleep job cycle, current state: ${localState.state}`);
     const id = process.env.OWNER_CHAT_ID;
     switch (localState.state) {
       case EScenarioState.STATE_IDLE: {
@@ -28,7 +28,6 @@ export const initSleepJob = (state: IAppState, localState: IScenarioState): sche
           break;
         }
 
-        setState(EScenarioState.STATE_QUERYING);
         const result: IUser = await human_module.getUser(id, human_access_hash);
         const { status } = result.user;
         if (shouldGoSleep(status)) {
@@ -53,7 +52,6 @@ export const initSleepJob = (state: IAppState, localState: IScenarioState): sche
           break;
         }
 
-        setState(EScenarioState.STATE_QUERYING);
         const result: IUser = await human_module.getUser(id, human_access_hash);
         const { status } = result.user;
         if (shouldGoSleep(status)) {

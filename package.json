@@ -8,10 +8,11 @@
     "compile:watch": "tsc --watch",
     "clean": "rimraf dist",
     "build": "npm run clean && npm run compile",
-    "start:verbose": "cross-env VERBOSE=true node dist/index.js",
-    "start:prod": "node dist/index.js",
-    "watch:verbose": "nodemon --exec cross-env VERBOSE=true node dist/index.js",
-    "watch:prod": "nodemon --exec node dist/index.js",
+    "start": "run-p lint:watch compile:watch exec:verbose:watch",
+    "exec:verbose": "cross-env VERBOSE=true node dist/index.js",
+    "exec:verbose:watch": "nodemon --exec cross-env VERBOSE=true node dist/index.js",
+    "exec": "node dist/index.js",
+    "exec:watch": "nodemon --exec node dist/index.js",
     "test": "jest",
     "cover": "jest --coverage",
     "lint": "eslint src/**/*.{ts,js} --fix",
@@ -73,22 +74,23 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.0",
-    "@types/node": "^16.4.13",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
-    "@typescript-eslint/parser": "^4.29.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.8",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "jest": "^27.0.6",
+    "jest": "^27.1.0",
     "nodemon": "^2.0.12",
+    "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.0.4",
-    "typescript": "^4.3.5"
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2"
   },
   "dependencies": {
     "@mtproto/core": "^6.0.1",
@@ -97,7 +99,7 @@
     "dotenv": "^10.0.0",
     "moment-timezone": "^0.5.33",
     "node-schedule": "^2.0.0",
-    "prompt": "^1.1.0",
-    "telegraf": "^4.4.0"
+    "prompt": "^1.2.0",
+    "telegraf": "^4.4.1"
   }
 }

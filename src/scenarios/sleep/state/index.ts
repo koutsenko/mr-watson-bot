@@ -3,16 +3,14 @@ import { verbose } from '../../../util/log';
 /**
  * Варианты значений локального состояния.
  *
- * @property STATE_QUERYING Выполняется запрос и обработка реакции.
  * @property STATE_WAITING_FOR_SLEEP Ожидание, ушел ли спать после напоминания.
  * @property STATE_WAITING_FOR_ANSWER Ожидается ответ "почему не спишь".
  * @property STATE_IDLE Модуль бездействует.
  */
 export enum EScenarioState {
-  STATE_QUERYING,
-  STATE_WAITING_FOR_SLEEP,
-  STATE_WAITING_FOR_ANSWER,
-  STATE_IDLE
+  STATE_WAITING_FOR_SLEEP = 'STATE_WAITING_FOR_SLEEP',
+  STATE_WAITING_FOR_ANSWER = 'STATE_WAITING_FOR_ANSWER',
+  STATE_IDLE = 'STATE_IDLE'
 }
 
 /**
@@ -36,8 +34,8 @@ export interface IScenarioState {
  * @param [nextStateData] Сопутствующие данные.
  */
 export const setState = (nextState: EScenarioState, nextStateData = {}): void => {
-  const prevStateValue = EScenarioState[localState.state];
-  const nextStateValue = EScenarioState[nextState];
+  const prevStateValue = localState.state;
+  const nextStateValue = nextState;
   verbose(`prev: ${prevStateValue}, next: ${nextStateValue}`);
 
   localState.state = nextState;
