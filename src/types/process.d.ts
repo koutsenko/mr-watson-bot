@@ -9,6 +9,7 @@ declare namespace NodeJS {
     USER_API_HASH: string;
     USER_PHONE_NUMBER: string;
     USER_TG_CLOUD_PASSWORD: string;
+    VERBOSE: string;
   }
 
   // https://github.com/facebook/jest/issues/11640

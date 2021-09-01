@@ -7,6 +7,7 @@ import { sleep } from '@mtproto/core/src/utils/common';
 import * as path from 'path';
 
 import { IAuthAuthorization, IAuthSentCode, IInputUser, IUser } from '../types/telegram-api';
+import { log } from '../util/log';
 
 /**
  * Класс-обертка над методами @mtproto/core. Назначение:
@@ -27,7 +28,7 @@ export default class API_mtproto {
       api_id: process.env.USER_API_ID,
       api_hash: process.env.USER_API_HASH,
       storageOptions: {
-        path: path.resolve(__dirname, '..', 'data', 'human.json')
+        path: path.resolve(__dirname, '..', '..', 'data', 'human.json')
       }
     });
   }
@@ -47,7 +48,7 @@ export default class API_mtproto {
 
       return result;
     } catch (error) {
-      console.log(`${method} error:`, error);
+      log(`${method} error: ${error}`);
 
       const { error_code, error_message } = error;
       if (error_code === 420) {
