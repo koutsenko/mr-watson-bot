@@ -2,25 +2,8 @@ import { Telegraf } from 'telegraf';
 
 import * as Messages from '../../constants/messages';
 import { appState } from '../../state';
+import { IBotError, IContext } from '../../types/bot';
 import { log } from '../../util/log';
-
-interface IBotError extends Error {
-  response?: {
-    error_code: number;
-    description: string;
-  };
-}
-
-export interface IContext {
-  reply: (arg: string) => void;
-  update?: {
-    message?: {
-      from?: {
-        id;
-      };
-    };
-  };
-}
 
 /**
  * Обработчик ошибки инициализации бота.

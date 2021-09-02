@@ -8,8 +8,9 @@
 import * as schedule from 'node-schedule';
 
 import { everyMinute } from '../../constants/jobs';
-import { IContext, wrapOwner } from '../../modules/bot';
+import { wrapOwner } from '../../modules/bot';
 import { appState } from '../../state';
+import { IContext } from '../../types/bot';
 import { verbose } from '../../util/log';
 import {
   handleIdleStateTick,
@@ -17,7 +18,8 @@ import {
   handleWaitingForAnswerTick,
   handleWaitingForSleepTick
 } from './actions';
-import { EScenarioState, scenarioState } from './state';
+import { EScenarioState } from './constants/enums';
+import { scenarioState } from './state';
 
 /**
  * Инициализация периодических задач и обработчиков сообщений пользователя.

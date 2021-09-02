@@ -1,8 +1,9 @@
-import { IContext } from '../../../modules/bot';
 import { appState } from '../../../state';
+import { IContext } from '../../../types/bot';
 import { IUser } from '../../../types/telegram-api';
 import { shouldCheckStatus, shouldGoSleep } from '../checks/tooLateOnline';
-import { EScenarioState, scenarioState, setScenarioState } from '../state';
+import { EScenarioState } from '../constants/enums';
+import { scenarioState, setScenarioState } from '../state';
 
 /**
  * Обработка сообщения от пользователя - ответ на вопрос почему не спишь.
