@@ -14,11 +14,19 @@ export enum EScenarioState {
 }
 
 /**
+ * Мутируемое локальное состояние сценария.
+ */
+export const scenarioState: IScenarioState = {
+  state: EScenarioState.STATE_IDLE,
+  data: {}
+};
+
+/**
  * Локальное состояние сценария сна.
  *
  * @property state Состояние.
  * @property data Данные состояния.
- * @property data.ticks Счетчик минут после 1-го напоминания.
+ * @property data.ticks Счетчик активности состояния.
  */
 export interface IScenarioState {
   state: EScenarioState;
@@ -33,19 +41,11 @@ export interface IScenarioState {
  * @param nextState Следующее значение состояния.
  * @param [nextStateData] Сопутствующие данные.
  */
-export const setState = (nextState: EScenarioState, nextStateData = {}): void => {
-  const prevStateValue = localState.state;
+export const setScenarioState = (nextState: EScenarioState, nextStateData = {}): void => {
+  const prevStateValue = scenarioState.state;
   const nextStateValue = nextState;
   verbose(`prev: ${prevStateValue}, next: ${nextStateValue}`);
 
-  localState.state = nextState;
-  localState.data = nextStateData;
-};
-
-/**
- * Мутируемое локальное состояние сценария.
- */
-export const localState: IScenarioState = {
-  state: EScenarioState.STATE_IDLE,
-  data: {}
+  scenarioState.state = nextState;
+  scenarioState.data = nextStateData;
 };

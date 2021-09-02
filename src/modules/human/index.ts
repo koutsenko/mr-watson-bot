@@ -2,10 +2,10 @@
  * Модуль для поддержки API, работающих только из-под токена пользователя.
  * Дополняет модуль telegraf, поскольку через API ботов доступны не все функции.
  */
-import * as MTProto from '@mtproto/core';
 import prompt from 'prompt';
 
 import API_mtproto from '../../api/mtproto';
+import { appState } from '../../state';
 import { IUser } from '../../types/telegram-api';
 import { log } from '../../util/log';
 
@@ -69,12 +69,13 @@ const authorize = async (api: API_mtproto) => {
 /**
  * Инициализация модуля с Telegram API.
  */
-export const initHuman = async (): Promise<[MTProto, string]> => {
+export const initHuman = async (): Promise<void> => {
   const api: API_mtproto = new API_mtproto();
   await authorize(api);
 
   const self: IUser = await api.getSelf();
   const { access_hash } = self.user;
 
-  return [api, access_hash];
+  appState.human_access_hash = access_hash;
+  appState.human_module = api;
 };

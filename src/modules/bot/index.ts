@@ -1,6 +1,7 @@
 import { Telegraf } from 'telegraf';
 
 import * as Messages from '../../constants/messages';
+import { appState } from '../../state';
 import { log } from '../../util/log';
 
 interface IBotError extends Error {
@@ -52,9 +53,9 @@ export const wrapOwner =
 /**
  * Инициализация модуля с Telegram Bot API.
  */
-export const initBot = async (): Promise<Telegraf> => {
+export const initBot = async (): Promise<void> => {
   const bot = new Telegraf(process.env.BOT_TOKEN);
   await bot.launch();
 
-  return bot;
+  appState.bot_module = bot;
 };

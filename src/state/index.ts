@@ -1,27 +1,25 @@
 import { IAppState } from '../types/state';
 
 /**
- * Инициализация начального стейта приложения.
+ * Мутируемое глобальное состояние приложения.
  */
-export const initEmptyAppState = (): IAppState => ({
+export const appState: IAppState = {
   bot_module: null,
   human_access_hash: null,
   human_module: null,
   jobs: []
-});
+};
 
 /**
  * Настройка мягкого завершения работы.
- *
- * @param state Стейт приложения.
  */
-export const setupAppStateShutdown = (state: IAppState): void => {
+export const setupAppStateShutdown = (): void => {
   process.once('SIGINT', () => {
-    state.jobs.forEach((job) => job.cancel());
-    state.bot_module.stop('SIGINT');
+    appState.jobs.forEach((job) => job.cancel());
+    appState.bot_module.stop('SIGINT');
   });
   process.once('SIGTERM', () => {
-    state.jobs.forEach((job) => job.cancel());
-    state.bot_module.stop('SIGTERM');
+    appState.jobs.forEach((job) => job.cancel());
+    appState.bot_module.stop('SIGTERM');
   });
 };
