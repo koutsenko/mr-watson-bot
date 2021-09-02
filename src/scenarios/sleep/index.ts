@@ -40,7 +40,7 @@ export const init = (): void => {
   // Сохранение ссылки на задачу.
   appState.jobs.push(job);
 
-  // Добавление реакции, пока эхо
+  // Добавление реакции, пока эхо.
   appState.bot_module.on(
     'message',
     wrapOwner((ctx: IContext) => {

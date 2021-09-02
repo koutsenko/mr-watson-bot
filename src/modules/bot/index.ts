@@ -36,7 +36,7 @@ export const wrapOwner =
 /**
  * Инициализация модуля с Telegram Bot API.
  */
-export const initBot = async (): Promise<void> => {
+export const initBotModule = async (): Promise<void> => {
   const bot = new Telegraf(process.env.BOT_TOKEN);
   await bot.launch();
 

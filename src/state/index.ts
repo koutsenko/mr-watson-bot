@@ -13,13 +13,13 @@ export const appState: IAppState = {
 /**
  * Настройка мягкого завершения работы.
  */
-export const setupAppStateShutdown = (): void => {
+export const setupGracefulShutdown = (): void => {
   process.once('SIGINT', () => {
     appState.jobs.forEach((job) => job.cancel());
-    appState.bot_module.stop('SIGINT');
+    appState.bot_module?.stop('SIGINT');
   });
   process.once('SIGTERM', () => {
     appState.jobs.forEach((job) => job.cancel());
-    appState.bot_module.stop('SIGTERM');
+    appState.bot_module?.stop('SIGTERM');
   });
 };

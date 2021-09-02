@@ -69,7 +69,7 @@ const authorize = async (api: API_mtproto) => {
 /**
  * Инициализация модуля с Telegram API.
  */
-export const initHuman = async (): Promise<void> => {
+export const initHumanModule = async (): Promise<void> => {
   const api: API_mtproto = new API_mtproto();
   await authorize(api);
 
