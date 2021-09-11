@@ -1,13 +1,30 @@
 import { IAppState } from '../types/state';
 
 /**
- * Мутируемое глобальное состояние приложения.
+ * Фабрика начального глобального состояния приложения.
  */
-export const appState: IAppState = {
+const buildInitialState = (): IAppState => ({
   bot_module: null,
   human_access_hash: null,
   human_module: null,
   jobs: []
+});
+
+/**
+ * Мутируемое глобальное состояние приложения.
+ */
+export const appState: IAppState = buildInitialState();
+
+/**
+ * Установка начального глобального состояния.
+ */
+export const setInitialGlobalState = (): void => {
+  const initialState = buildInitialState();
+
+  appState.bot_module = initialState.bot_module;
+  appState.human_access_hash = initialState.human_access_hash;
+  appState.human_module = initialState.human_module;
+  appState.jobs = initialState.jobs;
 };
 
 /**

@@ -3,6 +3,16 @@ import * as schedule from 'node-schedule';
 import { Telegraf } from 'telegraf';
 
 /**
+ * Интерфейс фейкового бота для тестов.
+ */
+interface IFakeBot {
+  on: Function;
+  telegram: {
+    sendMessage: Function;
+  };
+}
+
+/**
  * Глобальное состояние приложения.
  *
  * @property human_module Модуль для запроса данных от лица человека.
@@ -13,6 +23,6 @@ import { Telegraf } from 'telegraf';
 export interface IAppState {
   human_module: MTProto;
   human_access_hash: string;
-  bot_module: Telegraf;
+  bot_module: Telegraf | IFakeBot;
   jobs: Array<schedule>;
 }
