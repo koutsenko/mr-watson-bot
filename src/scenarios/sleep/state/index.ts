@@ -3,12 +3,17 @@ import { verbose } from '../../../util/log';
 import { EScenarioState } from '../constants/enums';
 
 /**
- * Мутируемое локальное состояние сценария.
+ * Фабрика начального состояния.
  */
-export const scenarioState: IScenarioState = {
+const buildInitialState = (): IScenarioState => ({
   state: EScenarioState.STATE_IDLE,
   data: {}
-};
+});
+
+/**
+ * Мутируемое локальное состояние сценария.
+ */
+export const scenarioState: IScenarioState = buildInitialState();
 
 /**
  * Сеттер состояния.
@@ -23,4 +28,11 @@ export const setScenarioState = (nextState: EScenarioState, nextStateData = {}):
 
   scenarioState.state = nextState;
   scenarioState.data = nextStateData;
+};
+
+/**
+ * Установка начального состояния.
+ */
+export const setInitialScenarioState = (): void => {
+  setScenarioState(EScenarioState.STATE_IDLE, {});
 };
