@@ -5,7 +5,8 @@ import { handleVarsError, varsAreSet } from './checks/variables';
 import * as Messages from './constants/messages';
 import { handleBotError, initBotModule } from './modules/bot';
 import { handleHumanError, initHumanModule } from './modules/human';
-import { init as initSleepScenario } from './scenarios/sleep';
+import { init as initGroupsScenario } from './scenarios/groups';
+// import { init as initSleepScenario } from './scenarios/sleep';
 import { setupGracefulShutdown } from './state';
 import { log } from './util/log';
 
@@ -31,7 +32,9 @@ const EP = async (): Promise<void> => {
     handleHumanError(error);
   }
 
-  initSleepScenario();
+  // Выключаем из-за конфликта сценариев в appState.bot_module.on('message')
+  // initSleepScenario();
+  initGroupsScenario();
 
   setupGracefulShutdown();
 

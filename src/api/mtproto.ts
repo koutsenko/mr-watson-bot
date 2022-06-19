@@ -164,4 +164,20 @@ export default class API_mtproto {
         M1
       }
     });
+
+  /**
+   * Список своих чатов.
+   * См. https://core.telegram.org/method/messages.getDialogs.
+   *
+   * @param window Размер окна данных.
+   * @param [offset] Смещение окна данных.
+   */
+  listSelfChats = (window: number, offset?: number) => {
+    // TODO Сравнить JSON - два маленьких окна и одно большое - должны складываться.
+    return this.call('messages.getDialogs', {
+      limit: window,
+      offset_peer: { _: 'inputPeerEmpty' },
+      ...(offset && { offset })
+    });
+  };
 }
